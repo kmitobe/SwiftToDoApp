@@ -30,7 +30,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ToDoListApp" id="CMy-Mf-HQ2">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="c7z-X1-q5U"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="c7z-X1-q5U">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="xBU-7Z-0LF" id="SqL-Rj-bt4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoM-SY-jh9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

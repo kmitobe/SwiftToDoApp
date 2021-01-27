@@ -39,6 +39,8 @@ class TodoListViewController: UITableViewController {
         taskArray.append(task2)
         taskArray.append(task3)
         
+
+        
     }
     
     //テーブルビューでの設定
@@ -63,11 +65,43 @@ class TodoListViewController: UITableViewController {
         let task = taskArray[indexPath.row]
         //配列のboolを反転させるこれがチェックマークになる
         task.done = !task.done
+        //選択時の背景を操作する→アニメーションが反応しない
+        tableView.deselectRow(at: indexPath, animated: true)
         //リロードして更新し、変更された値を反映する
         self.tableView.reloadData()
-        //選択時の背景を操作する
-        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    //削除機能のカスタマイズ
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        //タスクの配列から該当の配列を削除
+        taskArray.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        tableView .deleteRows(at: indexPaths, with: .automatic)
         
+    }
+    //プラスボタンの押下時の処理
+    @IBAction func addButtonPressed(_ sender: Any) {
+        
+        var textField = UITextField()
+        //アラートにあげるタイトルの設定
+        let alert = UIAlertController(title: "新しいアイテムの追加", message: "新規タスク", preferredStyle: .alert)
+        //追加ボタン設定
+        let action = UIAlertAction(title: "リストに追加", style: .default){(action)in
+            
+            let newItem: Task = Task(title: textField.text!)
+            
+            self.taskArray.append(newItem)
+            //再描画
+            self.tableView.reloadData()
+        }
+        alert.addTextField{(alertTextField)in
+            //テキストフィールドの表示設定
+            alertTextField.placeholder = "新しいアイテム"
+            textField = alertTextField
+        }
+        alert.addAction(action)
+        present(alert , animated: true ,completion: nil)
+
+
     }
 }
 
